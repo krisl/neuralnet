@@ -1,7 +1,7 @@
 class Net
   def initialize topology
     @layers = topology.each_with_index.map do |neuron_count, i| 
-      num_outputs = i == topology.count -1 ? 0 : topology[i+1]
+      num_outputs = i == topology.count - 1 ? 0 : topology[i+1]
       Layer.new(neuron_count, num_outputs)
     end
   end
@@ -28,10 +28,20 @@ end
 
 class Neuron
   def initialize num_outputs
-    puts "made a neuron with #{num_outputs} outputs"
+    puts "making a neuron with #{num_outputs} outputs"
+    @connections = Array.new(num_outputs){ Connection.new }
+    puts ""
   end
 end
 
+class Connection
+  attr_accessor :weight
+
+  def initialize
+    @weight = Random.new.rand
+    puts "    Weight #{@weight}"
+  end
+end
 
 topology = [3,2,1]
 net = Net.new topology
